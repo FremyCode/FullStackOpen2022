@@ -1,6 +1,16 @@
 import { useState } from "react";
 
 const Statistics = (props) => {
+
+  if (props.combinedCount === 0) {
+    return (
+      <div>
+        <h1>Statistics</h1>
+        <h2>Insert feedback to acquire statistics</h2>
+      </div>
+    )
+  }
+
   return (
     <div>
       <h1>Statistics</h1>
