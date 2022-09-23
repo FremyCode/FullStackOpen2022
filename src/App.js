@@ -1,10 +1,17 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 const App = () => {
   // tallenna napit omaan tilaansa
-  const [good, setGood] = useState(0)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
+
+  const combinedCount = good + bad + neutral;
+  const average = (good*1 + neutral*0 + bad*-1) / combinedCount;
+  const positiveFeedback = good / combinedCount;
+
+  //Laajenna sovellusta siten, että se näyttää palautteista enemmän statistiikkaa: yhteenlasketun määrän, keskiarvon
+  // (hyvän arvo 1, neutraalin 0, huonon -1) ja sen kuinka monta prosenttia palautteista on ollut positiivisia
 
 
   return (
@@ -21,10 +28,13 @@ const App = () => {
           <p>Good {good}</p>
           <p>Neutral {neutral}</p>
           <p>Bad {bad}</p>
+          <h2>All {combinedCount}</h2>
+          <h2>Average {average}</h2>
+          <h2>Positive {positiveFeedback * 100}%</h2>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
