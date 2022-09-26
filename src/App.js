@@ -1,29 +1,5 @@
 import { useState } from "react";
 
-const Statistics = (props) => {
-
-  if (props.combinedCount === 0) {
-    return (
-      <div>
-        <h1>Statistics</h1>
-        <h2>Insert feedback to acquire statistics</h2>
-      </div>
-    )
-  }
-
-  return (
-    <div>
-      <h1>Statistics</h1>
-      <p>Good {props.good}</p>
-      <p>Neutral {props.neutral}</p>
-      <p>Bad {props.bad}</p>
-      <h2>All {props.combinedCount}</h2>
-      <h2>Average {props.average}</h2>
-      <h2>Positive {props.positiveFeedback * 100}%</h2>
-    </div>
-  );
-};
-
 const App = () => {
   
   const [good, setGood] = useState(0);
@@ -38,9 +14,18 @@ const App = () => {
     <div>
       <h1>Give feedback</h1>
       <div>
-        <button onClick={() => setGood(good + 1)}>Good</button>
-        <button onClick={() => setNeutral(neutral + 1)}>Neutral</button>
-        <button onClick={() => setBad(bad + 1)}>Bad</button>
+        <Button
+          onClick={() => setGood(good + 1)}
+          text="Good"
+        />
+        <Button
+        onClick={() => setNeutral(neutral + 1)}
+        text="Good"
+        />
+        <Button
+        onClick={() => setBad(bad + 1)}
+        text="Bad"
+        />
       </div>
       <div>
         <Statistics
@@ -49,11 +34,48 @@ const App = () => {
           bad={bad}
           combinedCount={combinedCount}
           average={average}
-          positiveFeedback={positiveFeedback}
+          positiveFeedback={positiveFeedback * 100}
+          percentage={"%"}
         />
       </div>
     </div>
   );
 };
+
+const Statistics = (props) => {
+
+  if (props.combinedCount === 0) {
+    return (
+      <div>
+        <h1>Statistics</h1>
+        <h2>Insert feedback to acquire statistics</h2>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <h1>Statistics</h1>
+      <StatisticsLine text="Good" value={props.good}/>
+      <StatisticsLine text="Neutral" value={props.neutral}/>
+      <StatisticsLine text="Bad" value={props.bad}/>
+      <StatisticsLine text="All" value={props.combinedCount}/>
+      <StatisticsLine text="Average" value={props.average}/>
+      <StatisticsLine text="Positive" value={props.positiveFeedback} sign={props.percentage}/>
+    </div>
+  );
+};
+
+const StatisticsLine = (props) => {
+  return (
+    <p>{props.text} {props.value}{props.sign}</p>
+  )
+}
+
+const Button = (props) => {
+  return (
+    <button onClick={props.onClick}>{props.text}</button>
+  )
+}
 
 export default App;
