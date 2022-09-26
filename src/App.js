@@ -20,7 +20,7 @@ const App = () => {
         />
         <Button
         onClick={() => setNeutral(neutral + 1)}
-        text="Good"
+        text="Neutral"
         />
         <Button
         onClick={() => setBad(bad + 1)}
