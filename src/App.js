@@ -12,32 +12,40 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
-  const [votes, setVotes] = useState(0)
-  const points = new Uint8Array(7)
-
-  const copy = [...points]
+  const [votes, setVotes] = useState(new Array(7).fill(0))
+  const copy_votes = [...votes]
+  const mostVotes = Math.max(...votes)
+  const mostIndex = votes.indexOf(mostVotes)
+  
+  
 
   //Generates random anecdote from anecdotes as the next one
 
-  function next(max) {
+  function Next(max) {
     setSelected(Math.floor(Math.random() * max))
   }
 
-  function updateVotes() {
-    copy[selected] += 1
-    setVotes()
-    console.log(copy)
+  function Vote() {
+    copy_votes[selected] += 1
+    setVotes(copy_votes)
+    return mostVotes;
   }
 
   return (
     <div>
       <div>
         {anecdotes[selected]}
-        <p>has {votes} votes</p>
+        <p>has {votes[selected]} votes</p>
       </div>
       <div>
-        <button onClick={() => next(7)}>Next anecdote</button>
-        <button onClick={() => updateVotes()}>Vote</button>
+        <button onClick={() => Next(7)}>Next anecdote</button>
+        <button onClick={() => Vote()}>Vote</button>
+      </div>
+
+      <div>
+        <h1>Anecdote with most votes</h1>
+        <p>{anecdotes[mostIndex]}</p>
+        <p>has {mostVotes} votes</p>
       </div>
     </div>
   )
