@@ -46,76 +46,43 @@ const App = () => {
     },
   ]
 
-  const Course = (props) => {
-    const Content = (props) => {
-      const Part = (props) => {
-        return (
-          <div>
-            {courses.map((course) => 
-              (course.parts.map((part) => 
-                (<p key={part.id}>{part.name} {part.exercises}</p>))
-              ))}
-          </div>
-        )
-      }
+  const Header = props =>
+  <h1>{props.course.name}</h1>
 
-      return (
+const Total = (props) => {
+  const parts = props.course.parts.map(course => course.exercises)
+
+  return (
+    <p>Total of {parts.reduce((s, p) => s + p)} exercises</p>
+  )
+}
+
+const Part = props =>
+  <p>{props.name} {props.exercises}</p>
+
+const Content = (props) => {
+    return (
         <div>
-          <Part/>
+            {props.course.parts.map(part => <Part key={part.id} name={part.name} exercises={part.exercises} />)}  
         </div>
-      )
-    }
-
-    const Header = (props) => {
-      /* console.log("Header courses", courses) */
-
-      return (
-        <div>
-          {courses.map((course) => (
-            <h2 key={course.id}>{course.name}</h2>
-          ))}
-        </div>
-      )
-    }
-
-    const Total = () => {
-      const initialValue = 0
-      console.log("Courses", courses)
-      let partsArray = []
-
-      for (var j = 0; j < courses.length; j++)
-
-      for (var i = 0; i < courses[j].parts.length; i++){
-      partsArray.push(courses[j].parts[i].exercises)
-     }
-
-
-     
-      const sumOfExercises = partsArray.reduce(
-        (prevValue, currValue) => prevValue + currValue,
-        initialValue
-      )
-
-      return (
-        <div>
-          <h3>Total of {sumOfExercises} exercises</h3>
-        </div>
-      )
-    }
+    )
+}
+const Course = (props) => {  
+    console.log(props)  
 
     return (
-      <div>
-        <Header course={courses} />
-        <Content parts={courses.parts} />
-        <Total parts={courses.parts} />
-      </div>
+        <div>
+            <Header course={props.course} />
+            <Content course={props.course} />
+            <Total course={props.course} />
+        </div>
     )
   }
 
   return (
     <div>
       <h1>Web development curriculum</h1>
-      <Course course={courses}/>
+      {courses.map(course => <Course key = {courses.id} course={course} />)}
     </div>
   )
 }
