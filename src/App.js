@@ -1,88 +1,121 @@
 import React from "react"
 
 const App = () => {
-  const course = {
-    name: "Half Stack application development",
-    parts: [
-      {
-        name: "Fundamentals of React",
-        exercises: 10,
-      },
-      {
-        name: "Using props to pass data",
-        exercises: 7,
-      },
-      {
-        name: "State of a component",
-        exercises: 14,
-      },
-      
-    ],
-  }
+  const courses = [
+    {
+      name: "Half Stack application development",
+      id: 1,
+      parts: [
+        {
+          name: "Fundamentals of React",
+          exercises: 10,
+          id: 1,
+        },
+        {
+          name: "Using props to pass data",
+          exercises: 7,
+          id: 2,
+        },
+        {
+          name: "State of a component",
+          exercises: 14,
+          id: 3,
+        },
+        {
+          name: "Redux",
+          exercises: 11,
+          id: 4,
+        },
+      ],
+    },
+    {
+      name: "Node.js",
+      id: 2,
+      parts: [
+        {
+          name: "Routing",
+          exercises: 3,
+          id: 1,
+        },
+        {
+          name: "Middlewares",
+          exercises: 7,
+          id: 2,
+        },
+      ],
+    },
+  ]
 
   const Course = (props) => {
-
-    const Content = () => {
+    const Content = (props) => {
       const Part = (props) => {
         return (
-          <p>
-            {props.parts.name} {props.parts.exercises}
-          </p>
+          <div>
+            {courses.map((course) => 
+              (course.parts.map((part) => 
+                (<p key={part.id}>{part.name} {part.exercises}</p>))
+              ))}
+          </div>
         )
       }
 
       return (
         <div>
-          <Part parts={course.parts[0]} exercises={course.parts[0].exercises} />
-          <Part parts={course.parts[1]} exercises={course.parts[1].exercises} />
-          <Part parts={course.parts[2]} exercises={course.parts[2].exercises} />
+          <Part/>
         </div>
       )
     }
 
-
     const Header = (props) => {
+      /* console.log("Header courses", courses) */
+
       return (
         <div>
-          <h1>{props.course}</h1>
+          {courses.map((course) => (
+            <h2 key={course.id}>{course.name}</h2>
+          ))}
         </div>
       )
     }
 
     const Total = () => {
+      const initialValue = 0
+      console.log("Courses", courses)
+      let partsArray = []
 
-     const initialValue = 0;
-     let partsArray = []
-     for (var i = 0; i < course.parts.length; i++){
-      partsArray[i] = course.parts[i].exercises
+      for (var j = 0; j < courses.length; j++)
+
+      for (var i = 0; i < courses[j].parts.length; i++){
+      partsArray.push(courses[j].parts[i].exercises)
      }
-     console.log(partsArray)
-    
-     const sumOfExercises = partsArray.reduce((prevValue, currValue) => prevValue + currValue, initialValue)
+
+
      
+      const sumOfExercises = partsArray.reduce(
+        (prevValue, currValue) => prevValue + currValue,
+        initialValue
+      )
+
       return (
         <div>
           <h3>Total of {sumOfExercises} exercises</h3>
         </div>
       )
-      
     }
-
 
     return (
       <div>
-        <Content/>
-        <Header/>
-        <Total/>
+        <Header course={courses} />
+        <Content parts={courses.parts} />
+        <Total parts={courses.parts} />
       </div>
     )
-
   }
-
 
   return (
     <div>
-      <Course Header={course.name} Content={course.parts} Parts={course.parts} Total={course.parts}/>
+      <h1>Web development curriculum</h1>
+      <Course course={courses}/>
     </div>
   )
 }
