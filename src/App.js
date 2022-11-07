@@ -8,7 +8,12 @@ const App = () => {
   const addName = (event) => {
 
     event.preventDefault()
-    setPersons([...persons, {name: newName}])
+
+    console.log(persons)
+
+    if (persons.find(e => e.name === newName)) {
+      window.alert(`${newName} already exists`)
+    } else {setPersons([...persons, {name: newName}])}
 
   }
 
