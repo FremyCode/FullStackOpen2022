@@ -6,6 +6,12 @@ const App = () => {
   ]) 
   const [newName, setNewName] = useState('')
 
+  const addName = (event) => {
+    event.preventDefault()
+
+  }
+
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -18,7 +24,11 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      ...
+      <ul>
+        {persons.map( person => 
+          person={person}
+          )}
+      </ul>
     </div>
   )
 
