@@ -15,7 +15,7 @@ const App = () => {
   const [filterInput, setFilterInput] = useState("")
 
   const personsToShow = persons.filter((person) =>
-    person.name.includes(filterInput)
+    person.name.toLowerCase().includes(filterInput.toLowerCase())
   )
 
   console.log("Persons to show", personsToShow)
