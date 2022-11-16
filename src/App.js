@@ -23,7 +23,7 @@ const App = () => {
   const Persons = () => {
     return (
       <div>
-        {persons.map((person) => (
+        {personsToShow.map((person) => (
           <div key={person.id}>
             <p>
               {person.name} {person.number}
