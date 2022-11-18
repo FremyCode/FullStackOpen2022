@@ -19,10 +19,8 @@ const App = () => {
   )
 
   const Countries = () => {
-    
     if (countriesToShow.length < 10) {
       return (
-        <>
         <div>
           {countriesToShow.map((country) => (
             <div key={country.id}>
@@ -30,27 +28,47 @@ const App = () => {
             </div>
           ))}
         </div>
-
-        <div>
-          {countriesToShow.map((country) => (
-            <div key={country.id}>
-              <p>{country.languages.fin}</p>
-            </div>
-          ))}
-        </div>
-
-        <div>
-          {countriesToShow.map((country) => (
-            <div key={country.id}>
-              <img src={country.flags.png} alt={`Flag of ${country.name.common}`}/>
-            </div>
-          ))}
-        </div>
-        </>
       )
     } else return <div>Too many results</div>
-    
   }
+
+  const CountryData = () => {
+    if (countriesToShow.length < 2) {
+      return (
+        <div>
+          {countriesToShow.map((country) => (
+            <div key={country.id}>
+              <h3>Capital: {country.capital}</h3>
+              <h3>Population: {country.population}</h3>
+            </div>
+          ))}
+        </div>
+      )
+    }
+  }
+
+  const CountryFlag = () => {
+    if (countriesToShow.length < 2) {
+      return (
+        <div>
+          {countriesToShow.map((country) => (
+            <div key={country.id}>
+              <img
+                src={country.flags.png}
+                alt={`Flag of ${country.name.common}`}
+              />
+            </div>
+          ))}
+        </div>
+      )
+    }
+  }
+
+  const Languages = () => {
+   
+     
+  }
+
 
   return (
     <div>
@@ -62,6 +80,9 @@ const App = () => {
         />
       </div>
       <Countries />
+      <CountryData />
+      <CountryFlag />
+      <Languages />
     </div>
   )
 }
