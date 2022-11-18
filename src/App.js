@@ -1,68 +1,56 @@
-import React from "react"
+import { useState, useEffect } from "react"
+import axios from "axios"
 
 const App = () => {
-  const course = {
-    name: "Half Stack application development",
-    parts: [
-      {
-        name: "Fundamentals of React",
-        exercises: 10,
-      },
-      {
-        name: "Using props to pass data",
-        exercises: 7,
-      },
-      {
-        name: "State of a component",
-        exercises: 14,
-      },
-    ],
-  }
+  const [filterInput, setFilterInput] = useState("")
 
-  const Header = (props) => {
-    return (
-      <div>
-        <h1>{props.course}</h1>
-      </div>
-    )
-  }
+  const [countries, setCountries] = useState([])
 
-  const Part = (props) => {
-    return (
-      <p>
-        {props.parts.name} {props.parts.exercises}
-      </p>
-    )
-  }
+  useEffect(() => {
+    axios.get("https://restcountries.com/v3.1/all").then((res) => {
+      setCountries(res.data)
+    })
+  }, [])
 
-  const Content = () => {
-    return (
-      <div>
-        <Part parts={course.parts[0]} exercises={course.parts[0].exercises} />
-        <Part parts={course.parts[1]} exercises={course.parts[1].exercises} />
-        <Part parts={course.parts[2]} exercises={course.parts[2].exercises} />
-      </div>
-    )
-  }
+  console.log("Country data", countries)
 
-  const Total = () => {
-    return (
-      <div>
-        <p>
-          Number of exercises{" "}
-          {course.parts[0].exercises +
-            course.parts[1].exercises +
-            course.parts[2].exercises}
-        </p>
-      </div>
-    )
+  const countriesToShow = countries.filter((country) =>
+    country.name.common.toLowerCase().includes(filterInput.toLowerCase())
+  )
+
+  const Countries = () => {
+    if (countriesToShow.length < 10) {
+      return (
+        <div>
+          {countriesToShow.map((country) => (
+            <div key={country.id}>
+              <h1>{country.name.common}</h1>
+
+              {country.languages.map((language, index) => {
+              return (
+                <div key={index}>
+                  <h2>{language}</h2>
+                </div>
+              );
+            })}
+
+            </div>
+          ))}
+        </div>
+      )
+    } else return <div>Too many results</div>
   }
 
   return (
     <div>
-      <Header course={course.name} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
+      <div>
+        Find countries:{" "}
+        <input
+          value={filterInput}
+          onChange={(e) => setFilterInput(e.target.value)}
+        />
+      </div>
+      <Countries />
     </div>
   )
 }
