@@ -25,15 +25,6 @@ const App = () => {
           {countriesToShow.map((country) => (
             <div key={country.id}>
               <h1>{country.name.common}</h1>
-
-              {country.languages.map((language, index) => {
-              return (
-                <div key={index}>
-                  <h2>{language}</h2>
-                </div>
-              );
-            })}
-
             </div>
           ))}
         </div>
