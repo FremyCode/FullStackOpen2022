@@ -65,7 +65,17 @@ const App = () => {
   }
 
   const Languages = () => {
-   
+    if (countriesToShow.length < 2) {
+      return (
+        <div>
+          {countriesToShow.map((country) => (
+            <div key={country.id}>
+              <h3>Languages:</h3><p>{JSON.stringify(country.languages)}</p>
+            </div>
+          ))}
+        </div>
+      )
+    }
      
   }
 
