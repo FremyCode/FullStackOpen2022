@@ -38,8 +38,14 @@ const App = () => {
         <div>
           {countriesToShow.map((country) => (
             <div key={country.id}>
-              <h3>Capital: {country.capital}</h3>
-              <h3>Population: {country.population}</h3>
+             <div>
+              <h3>Capital</h3>
+              <p>{country.capital}</p>
+             </div>
+             <div>
+                <h3>Population</h3>
+                <p>{country.population}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -70,13 +76,13 @@ const App = () => {
         <div>
           {countriesToShow.map((country) => (
             <div key={country.id}>
-              <h3>Languages:</h3><p>{JSON.stringify(country.languages)}</p>
+              {/* Languages are an object nested inside of array so rendering them is a mystery to me and Google */}
+              <h3>Languages</h3><p>{JSON.stringify(country.languages)}</p>
             </div>
           ))}
         </div>
       )
     }
-     
   }
 
 
@@ -91,8 +97,8 @@ const App = () => {
       </div>
       <Countries />
       <CountryData />
-      <CountryFlag />
       <Languages />
+      <CountryFlag />
     </div>
   )
 }
