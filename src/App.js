@@ -6,7 +6,7 @@ const App = () => {
 
   const [countries, setCountries] = useState([])
 
-  let [countriesToShow, setCountriesToShow] = useState([])
+  const [countriesToShow, setCountriesToShow] = useState([])
 
   useEffect(() => {
     axios.get("https://restcountries.com/v3.1/all").then((res) => {
@@ -21,9 +21,7 @@ const App = () => {
 
 
   const showCountry = (country) => {
-    console.log("Show:", country)
-    setCountriesToShow(country)
-    console.log("Countries to show:", countriesToShow)
+    setFilterInput(country.name.common)
   }
 
   const Countries = () => {
