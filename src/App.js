@@ -6,17 +6,25 @@ const App = () => {
 
   const [countries, setCountries] = useState([])
 
+  let [countriesToShow, setCountriesToShow] = useState([])
+
   useEffect(() => {
     axios.get("https://restcountries.com/v3.1/all").then((res) => {
+      const filteredCountries = countries.filter((country) =>
+        country.name.common.toLowerCase().includes(filterInput.toLowerCase())
+      )
       setCountries(res.data)
+      setCountriesToShow(filteredCountries)
+      console.log("Useeffect countries", countriesToShow)
     })
-  }, [])
+  }, [filterInput])
 
-  console.log("Country data", countries)
 
-  const countriesToShow = countries.filter((country) =>
-    country.name.common.toLowerCase().includes(filterInput.toLowerCase())
-  )
+  const showCountry = (country) => {
+    console.log("Show:", country)
+    setCountriesToShow(country)
+    console.log("Countries to show:", countriesToShow)
+  }
 
   const Countries = () => {
     if (countriesToShow.length < 10) {
@@ -25,6 +33,9 @@ const App = () => {
           {countriesToShow.map((country) => (
             <div key={country.id}>
               <h1>{country.name.common}</h1>
+              <button onClick={() => showCountry(country)} type="submit">
+                Show
+              </button>
             </div>
           ))}
         </div>
@@ -38,11 +49,11 @@ const App = () => {
         <div>
           {countriesToShow.map((country) => (
             <div key={country.id}>
-             <div>
-              <h3>Capital</h3>
-              <p>{country.capital}</p>
-             </div>
-             <div>
+              <div>
+                <h3>Capital</h3>
+                <p>{country.capital}</p>
+              </div>
+              <div>
                 <h3>Population</h3>
                 <p>{country.population}</p>
               </div>
@@ -76,15 +87,14 @@ const App = () => {
         <div>
           {countriesToShow.map((country) => (
             <div key={country.id}>
-              {/* Languages are an object nested inside of array so rendering them is a mystery to me and Google */}
-              <h3>Languages</h3><p>{JSON.stringify(country.languages)}</p>
+              <h3>Languages</h3>
+              <p>{JSON.stringify(country.languages)}</p>
             </div>
           ))}
         </div>
       )
     }
   }
-
 
   return (
     <div>
